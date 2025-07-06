@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manvendra's WebStudy</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #f0f0f0, #d0eaff);
+    overflow: hidden;
+  }
+  .frame-outline {
+    margin: 20px;
+    border: 5px double #004080;
+    border-radius: 15px;
+    padding: 20px;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 1;
+  }
+  header {
+    background: #004080;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 3px dashed white;
+  }
+  nav button {
+    margin: 5px;
+    padding: 10px 20px;
+    background: #0059b3;
+    color: white;
+    border: 2px solid #003366;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  nav button:hover {
+    background: #0073e6;
+  }
+  .content {
+    padding: 20px;
+  }
+  .polls button {
+    margin: 5px;
+    padding: 5px 15px;
+    border: 2px solid #003366;
+    border-radius: 8px;
+    background: #0059b3;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .polls button:hover {
+    background: #0073e6;
+  }
+  #awesomePopup {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #28a745;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+  .vibrate {
+    animation: shake 0.2s infinite;
+  }
+  @keyframes shake {
+    0% { transform: translate(1px, 1px); }
+    25% { transform: translate(-1px, -2px); }
+    50% { transform: translate(-3px, 0); }
+    75% { transform: translate(3px, 2px); }
+    100% { transform: translate(1px, -1px); }
+  }
+  .star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: sparkle 5s linear infinite;
+    z-index: 0;
+  }
+  @keyframes sparkle {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame-outline">
+  <header>
+    <h1>Manvendra's WebStudy</h1>
+    <p>हार मत मानो, बड़ी कामयाबी इंतजार कर रही है!</p>
+  </header>
+
+<nav>
+  <button onclick="showNotes('commerce')">Commerce</button>
+  <button onclick="showNotes('maths')">Maths</button>
+  <button onclick="showNotes('english')">English</button>
+  <button onclick="showNotes('hindi')">Hindi</button>
+  <button onclick="showNotes('history')">History</button>
+  <button onclick="showNotes('geography')">Geography</button>
+  <button onclick="showNotes('geometry')">Geometry</button>
+  <button onclick="showNotes('bookkeeping')">Book Keeping</button>
+</nav>
+
+<div class="content" id="notesArea">
+  <h2>Welcome to the Educational System</h2>
+  <p>Select a subject to view notes, examples, and MCQ polls.</p>
+</div>
+
+<div id="awesomePopup">Awesome!</div>
+</div>
+
+<script>
+const notesData = {
+  commerce: {
+    note: "Commerce is the exchange of goods, services, and information.",
+    example: "Buying price ₹10,000, Selling price ₹12,000 → Profit = ₹2,000.",
+    mcqs: [
+      { q: "Which is an example of E-Commerce?", options: ["Shop", "Amazon", "Post Office"], correct: "Amazon" },
+      { q: "Which is a form of Digital Payment?", options: ["Cheque", "UPI", "Cash"], correct: "UPI" }
+    ]
+  },
+  maths: {
+    note: "Algebra uses symbols to represent unknown values.",
+    example: "Solve x + 5 = 12 → x = 7.",
+    mcqs: [
+      { q: "What is (a + b)²?", options: ["a² + b²", "a² + 2ab + b²"], correct: "a² + 2ab + b²" },
+      { q: "Value of √25?", options: ["5", "25", "125"], correct: "5" }
+    ]
+  },
+  english: {
+    note: "Grammar improves communication skills.",
+    example: "Correct sentence: He goes to school daily.",
+    mcqs: [
+      { q: "Identify the noun:", options: ["Run", "Delhi", "Quickly"], correct: "Delhi" },
+      { q: "Synonym of 'Happy'?", options: ["Sad", "Glad", "Run"], correct: "Glad" }
+    ]
+  },
+  hindi: {
+    note: "हिंदी हमारी मातृभाषा है।",
+    example: "सही वाक्य: वह स्कूल जाता है।",
+    mcqs: [
+      { q: "निम्न में से संज्ञा कौन है?", options: ["भागना", "दिल्ली", "तेज़"], correct: "दिल्ली" },
+      { q: "'भारत' किस प्रकार का शब्द है?", options: ["क्रिया", "संज्ञा", "विशेषण"], correct: "संज्ञा" }
+    ]
+  },
+  history: {
+    note: "History teaches us about past events and civilizations.",
+    example: "The Indus Valley Civilization was one of the earliest.",
+    mcqs: [
+      { q: "Who was the first President of India?", options: ["Mahatma Gandhi", "Dr. Rajendra Prasad", "Jawaharlal Nehru"], correct: "Dr. Rajendra Prasad" },
+      { q: "In which year did India get Independence?", options: ["1947", "1950", "1930"], correct: "1947" }
+    ]
+  },
+  geography: {
+    note: "Geography studies the Earth, its features, and environment.",
+    example: "Mount Everest is the highest peak in the world.",
+    mcqs: [
+      { q: "Which is the longest river in the world?", options: ["Ganga", "Nile", "Amazon"], correct: "Nile" },
+      { q: "Largest desert in the world?", options: ["Thar", "Sahara", "Atacama"], correct: "Sahara" }
+    ]
+  },
+  geometry: {
+    note: "Geometry deals with shapes, sizes, and properties of space.",
+    example: "Area of circle = π × r²",
+    mcqs: [
+      { q: "How many sides does a hexagon have?", options: ["5", "6", "7"], correct: "6" },
+      { q: "Angle sum of triangle?", options: ["90°", "180°", "360°"], correct: "180°" }
+    ]
+  },
+  bookkeeping: {
+    note: "Book Keeping records financial transactions of a business.",
+    example: "Debits and credits must always balance.",
+    mcqs: [
+      { q: "Which document records daily transactions?", options: ["Ledger", "Journal", "Invoice"], correct: "Journal" },
+      { q: "Assets appear on which side of Balance Sheet?", options: ["Left", "Right", "Top"], correct: "Left" }
+    ]
+  }
+};
+
+function showNotes(subject) {
+  const area = document.getElementById('notesArea');
+  const data = notesData[subject];
+  area.innerHTML = `<h2>${subject.charAt(0).toUpperCase() + subject.slice(1)} Notes</h2>
+    <p>${data.note}</p>
+    <p><strong>Example:</strong> ${data.example}</p>
+    <div class='polls'><strong>MCQ:</strong><br>
+      ${data.mcqs.map(mcq => `
+        <p>${mcq.q}</p>
+        ${mcq.options.map(opt => `<button onclick=\"checkMCQ('${mcq.correct}','${opt}','${subject}')\">${opt}</button>`).join('')}
+      `).join('')}
+    </div>`;
+}
+
+function checkMCQ(correct, selected, subject) {
+  if (selected === correct) {
+    document.getElementById('awesomePopup').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('awesomePopup').style.display = 'none';
+      showNotes(subject);
+    }, 1500);
+  } else {
+    document.body.classList.add('vibrate');
+    setTimeout(() => {
+      document.body.classList.remove('vibrate');
+    }, 3000);
+  }
+}
+
+for (let i = 0; i < 100; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  star.style.left = Math.random() * window.innerWidth + 'px';
+  star.style.top = Math.random() * window.innerHeight + 'px';
+  star.style.animationDuration = (2 + Math.random() * 3) + 's';
+  document.body.appendChild(star);
+}
+</script>
+
+</body>
+</html>
